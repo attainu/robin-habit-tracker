@@ -1,0 +1,29 @@
+<section class="container">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <form action="/dashboard/edit?_method=PATCH&Id={{ habit }}" method="POST">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" value="{{habit.title}}">
+                </div>
+                <div class="form-group">
+                    <label for="body">Body</label>
+                    <input type="text" class="form-control" id="body" name="body" value="{{habit.body}}">
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <input type="text" class="form-control" id="priority" name="priority" value="{{habit.priority}}">
+                </div>
+                <div class="form-group">
+                    <label for="reminder">Reminder</label>
+                    <input type="number" class="form-control" id="reminder" name="reminder" value="{{habit.reminder}}">
+                </div>
+                <div class="form-group">
+                    <label for="reminder">Goals</label>
+                    <input type="number" class="form-control" id="goals" name="goals" value="{{habit.reminder}}">
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<style>
+    body {
+        padding: 30px;
+        margin: 30px;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        width: 20%;
+        height: 45%;
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+        padding: 15px 16px;
+        text-align: left;
+    }
+</style>
+<h1>Welcome to Dashboard</h1>
+<h3>{{ message }}</h3>
+<div>
+    <a href="/dashboard/add/{{userId}}" class="btn btn-secondary">Add Habits</a>
+    <a href="/dashboard/view/{{userId}}" class="btn btn-secondary">View Habits</a>
+</div>
+<div>
+    <br><br>
+    <h2>Your Habits: </h2>
+    <br><br>
+    {{#each habits}}
+    <div class="card">
+        <div class="container">
+            <h4><b>{{ this.title }}</b></h4>
+            <h3>{{ this.priority }}</h3>
+            <p>{{ this.body }}</p>
+            <p>{{ this.dateCreated }}</p>
+            <p>{{ this.createdBy }}</p>
+        </div>
+        <form action="/update/{{this._id}}" method="GET">
+            <button type="submit" class="btn btn-info" style="position: absolute; margin-left: 10px;">Edit</button>
+        </form>
+        <form action="/dashboard/delete/{{ this._id }}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger" style="position: absolute; margin-left: 80px; margin-top: -16px;">Delete</button>
+        </form>
+    </div>
+    <br><br>
+    {{/each}}
+</div>
+<div>
+    <a href="/logout" class="btn btn-secondary">Logout</a>
+    <br><br><br>
+</div>

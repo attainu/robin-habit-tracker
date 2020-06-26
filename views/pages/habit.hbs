@@ -1,0 +1,9 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<form method="POST" action="/dashboard/add/{{ userId }}">
+    Title: <input name="title" type="text" placeholder="Title"><br>
+    Body: <input name="body" type="text" placeholder="Habit you want to add...."><br>
+    Priority: <input name="priority" type="text" placeholder="Priority"><br>
+    Reminder: <input name="reminder" type="number" placeholder="Reminder"><br>
+    Goals: <input name="goals" type="number" placeholder="Goals"><br>
+    <button type="submit">ADD</button>
+</form>
