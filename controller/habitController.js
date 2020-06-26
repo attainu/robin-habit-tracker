@@ -7,11 +7,6 @@ var habitController = {};
 habitController.createHabit = async function(req, res) {
     try {
         var userId = req.params.userId;
-        // var user = await User.find({ _id: { userId } })
-        // user = await new User({
-        //     taskAdded: Habit.title
-        // }).save();
-        // console.log(user);
         var habit = {
             title: req.body.title,
             body: req.body.body,
@@ -56,12 +51,12 @@ habitController.updateOneHabit = async function(req, res) {
     return res.redirect(`/dashboard/view/${Id}`);
 };
 
-habitController.deleteHabit = function(req, res) {
-    var Id = req.params.Id;
-    Habit.deleteOne({
+habitController.deleteHabit = async function(req, res) {
+    var Id = req.query.Id;
+    await Habit.deleteOne({
         _id: Id,
     }).then(function() {
-        return res.redirect(`/dashboard/view/${userId}`);
+        return res.redirect(`/dashboard/view/${Id}`);
     });
 };
 

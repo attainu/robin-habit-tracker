@@ -8,12 +8,13 @@ renderController.addHabit = function(req, res) {
 
 renderController.getHabits = function(req, res) {
     var userId = req.params.userId;
-    Habit.find().then(function(habits) {
+    Habit.find({ createdBy: userId }).then(function(habits) {
         if (habits) {
             return res.render("dashboard", { habits: habits, userId: userId });
         } else return res.render("dashboard", { message: "Error fetching user Habits" })
     });
 };
+
 
 renderController.updatehabit = function(req, res) {
     //Habit.findOne({ _id: req.params.Id }).then(function (habit) {

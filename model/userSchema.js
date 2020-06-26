@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, SchemaType } from 'mongoose';
 
 const userSchema = Schema({
     name: {
@@ -23,7 +23,7 @@ const userSchema = Schema({
         required: true
     },
     taskAdded: {
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: "Habit"
     }
 });
