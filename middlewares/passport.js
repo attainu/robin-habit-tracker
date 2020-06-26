@@ -1,15 +1,15 @@
-var localStrategy = require('passport-local').Strategy;
-const user = require('../model/userSchema');
-const bcrypt = require('bcryptjs');
+import { Strategy as localStrategy } from 'passport-local';
+import user from '../model/userSchema';
+import { compare } from 'bcryptjs';
 
-module.exports = function(passport) {
+export default function(passport) {
     passport.use(new localStrategy({ usernameField: 'email' }, (email, password, done) => {
         user.findOne({ email: email }, (err, data) => {
             if (err) throw err;
             if (!data) {
                 return done(null, false, { message: "User Doesn't Exists.." });
             }
-            bcrypt.compare(password, data.password, (err, match) => {
+            compare(password, data.password, (err, match) => {
                 if (err) {
                     return done(null, false);
                 }

@@ -1,4 +1,4 @@
-var Habit = require("../model/habitSchema");
+import Habit from "../model/habitSchema";
 
 var renderController = {};
 
@@ -20,4 +20,4 @@ renderController.updatehabit = function(req, res) {
     return res.render("updateHabit", { habit: req.params.Id });
     //});
 };
-module.exports = renderController;
+export default renderController;

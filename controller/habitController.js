@@ -1,17 +1,17 @@
-var Habit = require("../model/habitSchema");
-var User = require("../model/userSchema");
-var mongoose = require("mongoose");
+import Habit from "../model/habitSchema";
+import User from "../model/userSchema";
+import mongoose from "mongoose";
 
 var habitController = {};
 
 habitController.createHabit = async function(req, res) {
     try {
         var userId = req.params.userId;
-        var user = await User.find({ _id: { userId } })
-        user = await new User({
-            taskAdded: Habit.title
-        }).save();
-        console.log(user);
+        // var user = await User.find({ _id: { userId } })
+        // user = await new User({
+        //     taskAdded: Habit.title
+        // }).save();
+        // console.log(user);
         var habit = {
             title: req.body.title,
             body: req.body.body,
@@ -31,7 +31,8 @@ habitController.createHabit = async function(req, res) {
         )
             return res.redirect("/habit");
 
-        else return res.redirect(`/dashboard/view/:${userId}`);
+        else if (habit.createdBy == userId) return res.redirect(`/dashboard/view/${userId}`);
+        else return res.render('dashboard', { message: "NO habits found, click Add habits to add one" });
     } catch (error) {
         console.log(error);
         res.render('dashboard', { message: error })
@@ -52,7 +53,7 @@ habitController.updateOneHabit = async function(req, res) {
             goals: req.body.goals,
         },
     });
-    return res.redirect(`/dashboard/view/:${userId}`);
+    return res.redirect(`/dashboard/view/${Id}`);
 };
 
 habitController.deleteHabit = function(req, res) {
@@ -60,8 +61,8 @@ habitController.deleteHabit = function(req, res) {
     Habit.deleteOne({
         _id: Id,
     }).then(function() {
-        return res.redirect(`/dashboard/view/:${userId}`);
+        return res.redirect(`/dashboard/view/${userId}`);
     });
 };
 
-module.exports = habitController;
+export default habitController;

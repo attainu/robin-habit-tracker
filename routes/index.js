@@ -1,29 +1,29 @@
-var express = require("express");
-var router = express.Router();
-var auth = require("../middlewares/auth");
-var userController = require("../controller/userController");
+import { Router } from "express";
+var router = Router();
+import auth from "../middlewares/auth";
+var { getUser } = require('../controller/userController').default;
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("home", { title: "Habit-Tracker" });
+router.get("/", function(req, res, next) {
+    res.render("home", { title: "Habit-Tracker" });
 });
 
 //Get SignUp page
-router.get("/register", function (req, res, next) {
-  res.render("register", { title: "SignUp" });
+router.get("/register", function(req, res, next) {
+    res.render("register", { title: "SignUp" });
 });
 
 //Get login Page
-router.get("/login", function (req, res, next) {
-  res.render("login", { title: "login" });
+router.get("/login", function(req, res, next) {
+    res.render("login", { title: "login" });
 });
 
 //Get User Dashboard
-router.get("/dashboard", auth, userController.getUser);
+router.get("/dashboard", auth, getUser);
 
 router.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect("/login");
+    req.logout();
+    res.redirect("/login");
 });
 
-module.exports = router;
+export default router;

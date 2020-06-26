@@ -1,13 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var userController = require('../controller/userController');
-var validate = require('../middlewares/validations');
-
+import { Router } from 'express';
+var router = Router();
+import { loginValidator, signUpValidator } from '../middlewares/validations';
+var { login, register } = require('../controller/userController').default;
 /* POST users listing. */
-router.post('/login', validate.loginValidator, userController.login)
-router.post('/register', validate.signUpValidator, userController.register)
+router.post('/login', loginValidator, login)
+router.post('/register', signUpValidator, register)
 
 /* GET users listing. */
 
 
-module.exports = router;
+export default router;

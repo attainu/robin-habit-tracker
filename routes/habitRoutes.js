@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
+import { Router } from 'express';
+var router = Router();
 
-var { addHabit, getHabits, updatehabit } = require('../controller/renderController');
-var { createHabit, updateOneHabit, deleteHabit } = require('../controller/habitController');
+var { addHabit, getHabits, updatehabit } = require('../controller/renderController').default;
+var { createHabit, updateOneHabit, deleteHabit } = require('../controller/habitController').default;
 
 router.get('/dashboard/add/:userId', addHabit);
 router.get('/dashboard/view/:userId', getHabits);
@@ -12,4 +12,4 @@ router.post('/dashboard/add/:userId', createHabit);
 router.patch('/dashboard/edit', updateOneHabit);
 router.delete('/dashboard/delete/:Id', deleteHabit)
 
-module.exports = router;
+export default router;
