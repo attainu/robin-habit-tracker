@@ -15,7 +15,7 @@ router.get("/register", function(req, res, next) {
 
 //Get login Page
 router.get("/login", function(req, res, next) {
-    res.render("login", { title: "login" });
+    res.render("login", { title: "login", success_message: "User Logged Out", failure_message: "Login Failed" });
 });
 
 //Get User Dashboard

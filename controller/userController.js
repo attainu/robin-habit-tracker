@@ -1,6 +1,7 @@
 import User from "../model/userSchema";
 import bcrypt from "bcryptjs";
 import passport from "passport";
+import transporter from "../helper/nodemailer";
 
 var userController = {};
 
@@ -28,15 +29,28 @@ userController.register = async(req, res, next) => {
                     bcrypt.hash(password, salt, (err, hash) => {
                         if (err) throw err;
                         password = hash;
+
+                        //Send Confirmation mail
+                        const url = `http://localhost:8080/dashboard`;
+                        const mailOption = {
+                            from: 'coolkaran.singh4frndz@gmail.com',
+                            to: req.body.email,
+                            subject: 'Please verify your email',
+                            text: "your account has been created on Habit-Tracker",
+                            html: `hi "${req.body.email}" Please click link to confirm your email: <a href="${url}">${url}</a>`
+                        }
+
                         User({
                             email,
                             name,
                             password,
                             contactNo
                         }).save((err, data) => {
-                            if (err) throw err;
-                            req.flash('success_message', "Registered Successfully.. Login To Continue..");
-                            res.redirect('/login');
+                            transporter.sendMail(mailOption, (err, info) => {
+                                if (err) throw err;
+                                req.flash('success_message', "Registered Successfully.. Verify Email..");
+                                res.redirect('/login');
+                            })
                         });
                     });
                 });
