@@ -84,8 +84,8 @@ app.use(function(err, req, res, next) {
 
 //Do not remove this comment as the app does not run on 3000 in my system.
 
-app.listen(8080, () => {
-    console.log("Server running on port 8080.");
+app.listen(process.env.PORT || 5000, () => {
+    console.log("Server running on port 5000.");
 })
 
 export default app;
