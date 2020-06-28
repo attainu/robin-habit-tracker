@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 var habitController = {};
 
-habitController.createHabit = async function(req, res) {
+habitController.createHabit = async(req, res) => {
     try {
         var userId = req.params.userId;
         var habit = {
@@ -34,30 +34,40 @@ habitController.createHabit = async function(req, res) {
     }
 };
 
-habitController.updateOneHabit = async function(req, res) {
-    var Id = req.query.Id;
-    console.log(req.body);
-    await Habit.updateOne({
-        _id: Id,
-    }, {
-        $set: {
-            title: req.body.title,
-            body: req.body.body,
-            priority: req.body.priority,
-            reminder: req.body.reminder,
-            goals: req.body.goals,
-        },
-    });
-    return res.redirect(`/dashboard/view/${Id}`);
+habitController.updateOneHabit = async(req, res) => {
+    try {
+        var Id = req.query.Id;
+        console.log(req.body);
+        await Habit.updateOne({
+            _id: Id,
+        }, {
+            $set: {
+                title: req.body.title,
+                body: req.body.body,
+                priority: req.body.priority,
+                reminder: req.body.reminder,
+                goals: req.body.goals,
+            },
+        });
+        return res.redirect(`/dashboard`);
+    } catch (error) {
+        console.log(error);
+        res.render('dashboard', { message: error })
+    }
 };
 
-habitController.deleteHabit = async function(req, res) {
-    var Id = req.query.Id;
-    await Habit.deleteOne({
-        _id: Id,
-    }).then(function() {
-        return res.redirect(`/dashboard/view/${Id}`);
-    });
+habitController.deleteHabit = (req, res) => {
+    try {
+        var Id = req.params.Id;
+        Habit.deleteOne({
+            _id: Id,
+        }).then(function() {
+            return res.redirect(`/dashboard`);
+        });
+    } catch (error) {
+        console.log(error);
+        res.render('dashboard', { message: error })
+    }
 };
 
 export default habitController;

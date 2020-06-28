@@ -21,6 +21,7 @@ router.get("/login", function(req, res, next) {
 //Get User Dashboard
 router.get("/dashboard", auth, getUser);
 
+//logout
 router.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/login");
