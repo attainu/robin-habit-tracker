@@ -1,3 +1,4 @@
+//Importing App Packages
 import createError from 'http-errors';
 import express from 'express';
 import { join } from 'path';
@@ -11,11 +12,16 @@ import flash from 'connect-flash';
 require('./middlewares/passport').default(passport);
 import methodOverride from 'method-override';
 
+//Importing Routes form Router
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
 import habitRoutes from './routes/habitRoutes';
+
+//Setting environment Variables
 var dotenv = require("dotenv")
 dotenv.config()
+
+//Establishing Express App
 var app = express();
 
 //mongoDb connection
@@ -48,7 +54,8 @@ app.use(session({
     saveUninitialized: true,
 }));
 app.use(methodOverride('_method'))
-    // using flash for flash messages 
+
+// using flash for flash messages 
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -62,7 +69,7 @@ app.use(function(req, res, next) {
 //rendering static files
 app.use(express.static(join(__dirname, 'public')));
 
-
+//Routes as middlewares
 app.use(indexRouter, usersRouter, habitRoutes);
 
 

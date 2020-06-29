@@ -2,6 +2,7 @@ import { Strategy as localStrategy } from 'passport-local';
 import user from '../model/userSchema';
 import { compare } from 'bcryptjs';
 
+//Authentication Strategy
 export default function(passport) {
     passport.use(new localStrategy({ usernameField: 'email' }, (email, password, done) => {
         user.findOne({ email: email }, (err, data) => {
@@ -23,6 +24,7 @@ export default function(passport) {
         });
     }));
 
+    //End of Auth Strategy
     passport.serializeUser(function(user, cb) {
         cb(null, user.id);
     });

@@ -6,6 +6,7 @@ import transporter from '../helper/nodemailer';
 
 var renderController = {};
 
+//Get Add Habit Form
 renderController.addHabit = async(req, res) => {
     try {
         return res.render("habit", { userId: req.params.userId });
@@ -14,6 +15,7 @@ renderController.addHabit = async(req, res) => {
     }
 };
 
+//View Habits on Dashboard
 renderController.getHabits = async(req, res) => {
     try {
         var userId = req.params.userId;
@@ -27,7 +29,7 @@ renderController.getHabits = async(req, res) => {
     }
 };
 
-
+//Get Edit Habits form
 renderController.updatehabit = async(req, res) => {
     try {
         return res.render("updateHabit", { habit: req.params.Id });
@@ -36,6 +38,7 @@ renderController.updatehabit = async(req, res) => {
     }
 };
 
+//Set Reminder (Under Construction)
 renderController.setReminder = async(req, res) => {
     try {
         const Id = req.params.Id
@@ -46,6 +49,7 @@ renderController.setReminder = async(req, res) => {
         console.log(user);
         const addStr = " * * * *";
         if (user) {
+            //Reminder info
             let mailOption = {
                 from: 'coolkaran.singh4frndz@gmail.com',
                 to: user.email,
@@ -53,6 +57,8 @@ renderController.setReminder = async(req, res) => {
                 text: "This mail is regarding a Habit Reminder you need to perform now",
                 html: `hi "${user.name}", This is the time where you step up to change yourself a bit as you have planned!`
             }
+
+            //Scheduling Reminder
             schedule.scheduleJob(reminderTime.concat(addStr), function() {
                 transporter.sendMail(mailOption, (err, info) => {
                     if (err) throw err;

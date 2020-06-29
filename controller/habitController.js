@@ -1,9 +1,8 @@
 import Habit from "../model/habitSchema";
-import User from "../model/userSchema";
-import mongoose from "mongoose";
 
 var habitController = {};
 
+//Add Habits
 habitController.createHabit = async(req, res) => {
     try {
         var userId = req.params.userId;
@@ -34,6 +33,7 @@ habitController.createHabit = async(req, res) => {
     }
 };
 
+//Edit Habits
 habitController.updateOneHabit = async(req, res) => {
     try {
         var Id = req.query.Id;
@@ -56,6 +56,8 @@ habitController.updateOneHabit = async(req, res) => {
     }
 };
 
+
+//Delete Habits
 habitController.deleteHabit = (req, res) => {
     try {
         var Id = req.params.Id;

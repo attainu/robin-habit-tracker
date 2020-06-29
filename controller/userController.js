@@ -5,6 +5,7 @@ import transporter from "../helper/nodemailer";
 
 var userController = {};
 
+//Register Controller
 userController.register = async(req, res, next) => {
     var { email, name, password, confirmpassword, contactNo } = req.body;
     var err;
@@ -59,6 +60,7 @@ userController.register = async(req, res, next) => {
     }
 };
 
+//Login Controller
 userController.login = async(req, res, next) => {
     passport.authenticate('local', {
         failureRedirect: '/login',
@@ -67,6 +69,7 @@ userController.login = async(req, res, next) => {
     })(req, res, next);
 };
 
+//Get Dashboard after successfull Authentication
 userController.getUser = async(req, res, next) => {
     try {
         const user = await User.findById(req.user.id);
